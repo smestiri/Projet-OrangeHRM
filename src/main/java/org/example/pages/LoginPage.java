@@ -16,12 +16,14 @@ public class LoginPage {
 
             this.driver= driver;
             PageFactory.initElements(driver, this);
+                WebDriverWait wait;
         }
-        @FindBy(xpath = "//input[@class='oxd-input' and @name='username']")
+        @FindBy(css = "div[data-v-957b4417] input[name='username']")
         WebElement InputUsername;
-        @FindBy(name="password")
+        @FindBy(css="div[data-v-957b4417] input[name='password']")
         WebElement InputPassword;
         @FindBy(css="[type=submit]")
+                //@FindBy(className = "oxd-button")
         WebElement LoginButton;
 
         public void goToLoginPage(String url){driver.get(url);}

@@ -1,41 +1,57 @@
 package org.example.pages;
 
 
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
+@Log4j2
 public class HomePage {
      WebDriver driver;
+    WebDriverWait wait;
     public HomePage(WebDriver driver) {
         this.driver= driver;
             PageFactory.initElements(driver, this);
-            WebDriverWait wait;
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
       @FindBy(css ="li:nth-child(2) > a > span" )
       WebElement PimButton;
       @FindBy(xpath = "//ul/li[1]/a/span")
       WebElement AdminButton;
-    public void goToPIMPage(){
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            //e.printStackTrace();
-        }
+      @FindBy(css = "a[href*='viewTimeModule']")
+      WebElement TimeButton;
+     @FindBy(css = "a[href*='viewMyDetails']")
+     WebElement InfoButton;
+
+    public PIMPage goToPIMPage(){
+        wait.until(ExpectedConditions.visibilityOfAllElements(PimButton));
+        log.info("click PIM Button");
         PimButton.click();
-        new PIMPage(driver);
+        return new PIMPage(driver);
     }
-    public void goToAdminPage(){
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            //e.printStackTrace();
-        }
+    public AdminPage goToAdminPage(){
+        wait.until(ExpectedConditions.visibilityOfAllElements(AdminButton));
+        log.info("click Admin Button");
         AdminButton.click();
-        new AdminPage(driver);
+        return new AdminPage(driver);
 
     }
+    public TimePage goToTimePage() {
+        wait.until(ExpectedConditions.visibilityOfAllElements(TimeButton));
+        log.info("click Time Button");
+        TimeButton.click();
+        return new TimePage(driver);
+    }
+    public InfoPage goToInfoPage(){
+        wait.until(ExpectedConditions.visibilityOfAllElements(InfoButton));
+        log.info("click Info Button");
+        InfoButton.click();
+        return new InfoPage(driver);}
 
 }

@@ -19,9 +19,9 @@ public class LoginPage {
         WebDriver driver;
         WebDriverWait wait;
 
-        @FindBy(xpath = "//input[@class=\"oxd-input oxd-input--active\" and @name=\"username\"]")
+        @FindBy(css = "input[name='username']")
         WebElement InputUsername;
-        @FindBy(xpath="//input[@type=\"password\"]")
+        @FindBy(css="div[data-v-957b4417] input[name='password']")
         WebElement InputPassword;
         @FindBy(css="[type=submit]")
                 //@FindBy(className = "oxd-button")
@@ -30,7 +30,7 @@ public class LoginPage {
         public void goToLoginPage(String url){driver.get(url);}
        public LoginPage(WebDriver driver) {
                this.driver = driver;
-               wait = new WebDriverWait(driver, Duration.ofSeconds(8));
+               wait = new WebDriverWait(driver, Duration.ofSeconds(20));
                PageFactory.initElements(driver, this);
        }
 

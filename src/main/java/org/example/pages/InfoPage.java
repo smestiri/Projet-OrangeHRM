@@ -24,7 +24,7 @@ public class InfoPage {
     }
     @FindBy(css = "h6~button.oxd-button")
     WebElement attachmentAddButton;
-    @FindBy(css = ".oxd-file-input")
+    @FindBy(css = ".oxd-file-button")
     WebElement inputUploadFile;
     @FindBy(css = "button.oxd-button--medium:nth-of-type(2)")
     WebElement saveButtonforuploadedfile;
@@ -49,19 +49,15 @@ public class InfoPage {
     public InfoPage uploadFile(String filePath) {
         wait.until(ExpectedConditions.visibilityOf(inputUploadFile));
         log.info("Uploading file");
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         File fileob = new File(filePath);
         inputUploadFile.sendKeys(fileob.getAbsolutePath());
         return this;
     }
-    /*public InfoPage uploadFile(String filePath) {
-        wait.until(ExpectedConditions.visibilityOf(inputUploadFile));
-        log.info("click on the Add button");
-        attachmentAddButton.click();
-        wait.until(ExpectedConditions.visibilityOf(inputUploadFile));
-        inputUploadFile.sendKeys(filePath);
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loading-spinner")));
-        return this;
-    }*/
     public InfoPage saveFile(){
         wait.until(ExpectedConditions.visibilityOf(saveButtonforuploadedfile));
         log.info("click on save button");

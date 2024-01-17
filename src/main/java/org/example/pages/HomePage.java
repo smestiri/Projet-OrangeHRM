@@ -2,6 +2,7 @@ package org.example.pages;
 
 
 import lombok.extern.log4j.Log4j2;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,6 +29,11 @@ public class HomePage {
       WebElement TimeButton;
      @FindBy(css = "a[href*='viewMyDetails']")
      WebElement InfoButton;
+    //@FindBy(xpath = "//p[normalize-space()='Employee Distribution by Location']")
+    //WebElement camembertloc;
+    @FindBy(css = "span[title='New York Sales Office']")
+    WebElement legendCamembert;
+
 
     public PIMPage goToPIMPage(){
         wait.until(ExpectedConditions.visibilityOfAllElements(PimButton));
@@ -53,5 +59,22 @@ public class HomePage {
         log.info("click Info Button");
         InfoButton.click();
         return new InfoPage(driver);}
+    public HomePage clickOnLegend(){
+        log.info(" clicking on New york sales office ");
+        wait.until(ExpectedConditions.elementToBeClickable(legendCamembert));
+        legendCamembert.click();
+        log.info("We clicked on Legend New York Sales Office successfully  .");
+        return this;
+    }
+    public boolean isLegendStrikethrough() {
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated((By) legendCamembert));
+            String textDecoration = legendCamembert.getCssValue("text-decoration");
+            return textDecoration.contains("line-through");
+        } catch (Exception e) {
+            System.out.println("Erreur : " + e.getMessage());
+            return false;
+        }
+    }
 
 }
